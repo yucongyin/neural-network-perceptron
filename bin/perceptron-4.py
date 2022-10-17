@@ -30,7 +30,6 @@ x2 = numpy.random.multivariate_normal(MEAN2,cov2,NUM_DATAPOINTS)
 #plotting the data
 plt.scatter(x1[:,0],x1[:,1],c='b', marker='.')
 plt.scatter(x2[:,0],x2[:,1],c='r', marker='.')
-plt.show()
 
 #combining the two data clouds
 X = numpy.concatenate((x1,x2),axis=0)
@@ -68,13 +67,21 @@ for epoch in range(100):
         #calculate total errors
         totalError = totalError + abs(error)
     #print(totalError)    
-    errorList.append(totalError)
+
+
+slope = -(w[0]/w[2])/(w[0]/w[1])
+yIntercept = -w[0]/w[2]
+print("slope:", slope)
+print("y-Intercept:", yIntercept)
+for i in numpy.linspace(numpy.amin(x1[:,0]),numpy.amax(x2[:,1])):
+    y = slope*i + yIntercept
+    plt.plot(i,y,"ko")
 
 
 
-plt.plot(errorList,'k')
-plt.xlabel("iterations(epoch)")
-plt.ylabel("total errors")
+
+plt.xlabel("x-axis")
+plt.ylabel("y-axis")
 plt.show()
 
 
